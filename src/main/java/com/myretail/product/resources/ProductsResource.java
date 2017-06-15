@@ -23,8 +23,6 @@ public class ProductsResource {
     @Inject
     ProductHandler handler;
 
-
-
     @GET
     @Path("/products/{id}")
     @Produces(MediaType.APPLICATION_JSON)
