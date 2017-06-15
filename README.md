@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # myRetail Product API
 
 How to start the myRetail Product API application
@@ -11,3 +12,7 @@ Health Check
 ---
 
 To see your applications health enter url `http://localhost:8081/healthcheck`
+=======
+# myRetail-PoC
+A PoC project for myRetail product API
+>>>>>>> origin/master
