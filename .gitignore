@@ -24,3 +24,7 @@ hs_err_pid*
 # IntelliJ IDEA Files
 *.iml
 .idea/
+
+# Maven Taget
+target/
+dependency-reduced-pom.xml
