@@ -1,7 +1,7 @@
 package com.myretail.product.resources;
 
 import static com.myretail.product.data.PriceUpdateStatus.BAD_REQUEST;
-import static com.myretail.product.data.PriceUpdateStatus.DB_ERROR;
+import static com.myretail.product.data.PriceUpdateStatus.UNAVAILABLE;
 import static com.myretail.product.data.PriceUpdateStatus.PRICE_UPDATED;
 
 import com.codahale.metrics.annotation.Metered;
@@ -53,14 +53,14 @@ public class ProductsResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed(name = "putPriceTimer", absolute = false)
     @Metered(name = "putPriceMeter", absolute = false)
-    public Response updatePriceDetails(ProductDetails productDetails) {
-        PriceUpdateStatus status = handler.updatePriceDetails(productDetails);
+    public Response updatePriceDetails(ProductDetails productDetails, @PathParam("id") final String id) {
+        PriceUpdateStatus status = handler.updatePriceDetails(id, productDetails);
         log.info("Price Update Status: {}", status);
         if (status.getCode() == PRICE_UPDATED.getCode()) {
             return Response.ok(status).build();
         } else if (status.getCode() == BAD_REQUEST.getCode()) {
             return Response.status(Status.BAD_REQUEST).entity(status).build();
-        } else if (status.getCode() == DB_ERROR.getCode()) {
+        } else if (status.getCode() == UNAVAILABLE.getCode()) {
             return Response.serverError().entity(status).build();
         } else {
             return Response.ok(status).build();

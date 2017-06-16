@@ -12,12 +12,12 @@ public class ProductServiceException extends Exception {
     private final FailureReason failureReason;
 
     public ProductServiceException(final FailureReason failureReason) {
-        super();
+        super(failureReason.message);
         this.failureReason = failureReason;
     }
 
     public ProductServiceException(final Throwable cause, final FailureReason failureReason) {
-        super(cause);
+        super(failureReason.message, cause);
         this.failureReason = failureReason;
     }
 

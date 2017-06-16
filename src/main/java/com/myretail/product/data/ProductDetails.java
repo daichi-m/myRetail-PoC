@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -23,6 +24,7 @@ import java.util.List;
 @Getter
 @ToString
 @NoArgsConstructor
+@EqualsAndHashCode
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ProductDetails {
@@ -31,6 +33,7 @@ public class ProductDetails {
     @Getter
     @ToString
     @NoArgsConstructor
+    @EqualsAndHashCode
     @AllArgsConstructor(access = AccessLevel.PACKAGE)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public static class PriceInfo {
@@ -44,6 +47,7 @@ public class ProductDetails {
 
     @Data
     @ToString
+    @EqualsAndHashCode
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Error {

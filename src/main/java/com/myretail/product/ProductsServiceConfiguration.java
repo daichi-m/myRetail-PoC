@@ -35,7 +35,7 @@ public class ProductsServiceConfiguration extends Configuration {
     /* The key to call the API */
     @JsonProperty
     @NotEmpty
-    private String apiKey;
+    private String productDetailsAPIKey;
 
     /* The JsonPath expression to get the details */
     @JsonProperty

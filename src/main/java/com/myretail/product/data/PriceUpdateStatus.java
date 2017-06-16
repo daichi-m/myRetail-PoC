@@ -15,7 +15,7 @@ import lombok.ToString;
 public class PriceUpdateStatus {
 
     public static  final PriceUpdateStatus PRICE_UPDATED = new PriceUpdateStatus(200, "Price Updated Successfully");
-    public static  final PriceUpdateStatus DB_ERROR = new PriceUpdateStatus(503, "DB Unavailable");
+    public static  final PriceUpdateStatus UNAVAILABLE = new PriceUpdateStatus(503, "DB Unavailable");
     public static  final PriceUpdateStatus BAD_REQUEST = new PriceUpdateStatus(400, "Id or Price Information Not Provided");
 
     @JsonProperty

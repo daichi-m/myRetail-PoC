@@ -10,12 +10,9 @@ import com.jayway.jsonpath.JsonPathException;
 import com.myretail.product.ProductsServiceConfiguration;
 import com.myretail.product.core.exception.ProductServiceException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,7 +45,7 @@ public class DetailsApiFacade {
      */
     public String getNameForId(String id) throws ProductServiceException {
         String urlPrefix = configuration.getProductDetailsAPI();
-        String urlKey = configuration.getApiKey();
+        String urlKey = configuration.getProductDetailsAPIKey();
         String url = new StringBuilder(urlPrefix).append(id).append("?").append("key=" + urlKey)
                                                  .append("&").append(params).toString();
         log.debug("Details URL: {}", url);

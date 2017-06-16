@@ -6,13 +6,11 @@ import com.myretail.product.data.ProductDetails;
 import com.myretail.product.data.ProductDetails.Error;
 import com.myretail.product.data.ProductDetails.PriceInfo;
 import com.myretail.product.data.ProductDetails.ProductDetailsBuilder;
-import com.myretail.product.data.ProductDetails.PriceInfo.PriceInfoBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.inject.Inject;
-import javax.ws.rs.core.Response;
 
 /**
  * The main handler class for the resource which does the external dependency calls.
@@ -68,11 +66,10 @@ public class ProductHandler {
         return builder.build();
     }
 
-    public PriceUpdateStatus updatePriceDetails(final ProductDetails productDetails) {
+    public PriceUpdateStatus updatePriceDetails(final String id, final ProductDetails productDetails) {
         if (productDetails == null || productDetails.getPriceInfo() == null) {
             return PriceUpdateStatus.BAD_REQUEST;
         }
-        String id = productDetails.getProductId();
         String currency = productDetails.getPriceInfo().getCurrencyCode();
         Double price = productDetails.getPriceInfo().getPrice();
         if (StringUtils.isEmpty(id) || StringUtils.isEmpty(currency) || price == null) {
@@ -82,7 +79,7 @@ public class ProductHandler {
         try {
             priceInfoHandler.updateOrInsertPrice(id, currency, price);
         } catch (ProductServiceException ex) {
-            return PriceUpdateStatus.DB_ERROR;
+            return PriceUpdateStatus.UNAVAILABLE;
         }
         return PriceUpdateStatus.PRICE_UPDATED;
     }

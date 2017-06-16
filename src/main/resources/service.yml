@@ -2,7 +2,7 @@ aerospikeConnectionString: "localhost:3000"
 aerospikeNamespace: "pricetag"
 aerospikePriceSet: "price"
 productDetailsAPI: "https://api.target.com/products/v3/"
-apiKey: "43cJWpLjH8Z8oR18KdrZDBKAgLLQKJjz"
+productDetailsAPIKey: "43cJWpLjH8Z8oR18KdrZDBKAgLLQKJjz"
 jsonPath: "$.product_composite_response.items[0].online_description.value"
 
 server:
