@@ -1,8 +1,8 @@
 package com.myretail.product.resources;
 
 import static com.myretail.product.data.PriceUpdateStatus.BAD_REQUEST;
-import static com.myretail.product.data.PriceUpdateStatus.UNAVAILABLE;
 import static com.myretail.product.data.PriceUpdateStatus.PRICE_UPDATED;
+import static com.myretail.product.data.PriceUpdateStatus.UNAVAILABLE;
 
 import com.codahale.metrics.annotation.Metered;
 import com.codahale.metrics.annotation.Timed;

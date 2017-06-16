@@ -6,7 +6,6 @@ import com.myretail.product.data.ProductDetails;
 import com.myretail.product.data.ProductDetails.Error;
 import com.myretail.product.data.ProductDetails.PriceInfo;
 import com.myretail.product.data.ProductDetails.ProductDetailsBuilder;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 

@@ -1,6 +1,5 @@
 package com.myretail.product.health;
 
-import com.codahale.metrics.health.HealthCheck;
 import com.hubspot.dropwizard.guice.InjectableHealthCheck;
 import com.myretail.product.core.ProductHandler;
 import com.myretail.product.data.ProductDetails;

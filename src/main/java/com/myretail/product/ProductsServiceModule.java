@@ -27,7 +27,7 @@ public class ProductsServiceModule extends AbstractModule {
     public AerospikeClient getAerospikeClient(final ProductsServiceConfiguration configuration) {
 
         String aerospikeConnectString = configuration.getAerospikeConnectionString();
-        String [] aerospikeHostPorts = aerospikeConnectString.split(",");
+        String[] aerospikeHostPorts = aerospikeConnectString.split(",");
         Host[] hosts = new Host[aerospikeHostPorts.length];
         int i = 0;
         for (String hpString : aerospikeHostPorts) {

@@ -1,7 +1,6 @@
 package com.myretail.product.client;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.ReasonPhraseCatalog;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -18,7 +17,7 @@ import java.util.Locale;
 @Slf4j
 public class GetProductDetailsClient {
 
-    public static void main(String [] args) {
+    public static void main(String[] args) {
 
         HttpClient client = HttpClients.createDefault();
         HttpGet request = new HttpGet("http://localhost:8090/myRetail/v1/products/13860428");

@@ -1,5 +1,13 @@
 package com.myretail.product.core;
 
+import static com.myretail.product.core.exception.ProductServiceException.FailureReason.DB_ERROR;
+import static com.myretail.product.core.exception.ProductServiceException.FailureReason.PRICE_NOT_FOUND;
+import static com.myretail.product.core.exception.ProductServiceException.FailureReason.PRODUCT_NOT_FOUND;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.reset;
+
 import com.myretail.product.core.exception.ProductServiceException;
 import com.myretail.product.data.PriceUpdateStatus;
 import com.myretail.product.data.ProductDetails;
@@ -12,23 +20,21 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static org.mockito.Mockito.*;
-import static com.myretail.product.core.exception.ProductServiceException.FailureReason.*;
-
 /**
  * Testcase for ProductHandler
  */
 @Slf4j
 public class ProductHandlerTest {
 
-    @Mock DetailsApiFacade detailsApiFacade;
-    @Mock PriceInfoHandler priceInfoHandler;
-    private ProductHandler productHandler;
-
     private final static String NAME = "The Big Lebowski (Blu-ray)";
     private final static String ID = "13860428";
     private final static String CURRENCY = "USD";
     private final static Double PRICE = 25.0;
+    @Mock
+    DetailsApiFacade detailsApiFacade;
+    @Mock
+    PriceInfoHandler priceInfoHandler;
+    private ProductHandler productHandler;
 
     @BeforeTest
     public void setup() {
@@ -37,12 +43,14 @@ public class ProductHandlerTest {
     }
 
     private ProductDetails getTestProductDetails(boolean namePresent, boolean pricePresent) {
-        ProductDetails.PriceInfo priceInfo = ProductDetails.PriceInfo.builder().currencyCode(CURRENCY).price(PRICE).build();
+        ProductDetails.PriceInfo priceInfo = ProductDetails.PriceInfo.builder().currencyCode(CURRENCY).price(PRICE)
+                                                                     .build();
         ProductDetails.Error nameError = new ProductDetails.Error("Invalid Product");
         ProductDetails.Error priceError = new ProductDetails.Error("Price Information Not Available");
         ProductDetails.PriceInfo invalidPriceInfo = ProductDetails.PriceInfo.builder().error(priceError).build();
 
-        ProductDetails.ProductDetailsBuilder detailsBuilder = ProductDetails.builder().productId(ID).completeInformation(true);
+        ProductDetails.ProductDetailsBuilder detailsBuilder = ProductDetails.builder().productId(ID)
+                                                                            .completeInformation(true);
         if (namePresent) {
             detailsBuilder.name(NAME);
         } else {
@@ -59,7 +67,7 @@ public class ProductHandlerTest {
 
     @DataProvider(name = "getDetailsDataProvider")
     private Object[][] provideGetDetailsTestData() {
-        return new Object[][] {
+        return new Object[][]{
                 {true, true},
                 {true, false},
                 {false, true},

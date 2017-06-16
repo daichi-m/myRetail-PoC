@@ -1,13 +1,13 @@
 package com.myretail.product;
 
-import io.dropwizard.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.dropwizard.Configuration;
 import lombok.Getter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.*;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.inject.Singleton;
-import javax.validation.constraints.*;
 
 @Getter
 @ToString
