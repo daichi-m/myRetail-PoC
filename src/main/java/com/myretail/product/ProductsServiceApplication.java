@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.hubspot.dropwizard.guice.GuiceBundle;
+import com.myretail.product.health.ProductAPIHealthCheck;
 import com.myretail.product.resources.ProductsResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
