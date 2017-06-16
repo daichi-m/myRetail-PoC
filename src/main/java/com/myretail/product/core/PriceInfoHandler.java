@@ -5,6 +5,7 @@ import static com.myretail.product.core.exception.ProductServiceException.Failur
 
 import com.aerospike.client.AerospikeClient;
 import com.aerospike.client.AerospikeException;
+import com.aerospike.client.Bin;
 import com.aerospike.client.Key;
 import com.aerospike.client.Record;
 import com.myretail.product.ProductsServiceConfiguration;
@@ -53,6 +54,26 @@ public class PriceInfoHandler {
             return ImmutablePair.of(currency, value);
         } else {
             throw new ProductServiceException(PRICE_NOT_FOUND);
+        }
+    }
+
+    /**
+     * Update the currency and price information for a product in the aeropike store, inserting a new record if not
+     * present.
+     *
+     * @param id       The product id
+     * @param currency The currency code
+     * @param price    The price of the product
+     * @throws ProductServiceException In case DB is unreachable.
+     */
+    public void updateOrInsertPrice(String id, String currency, double price) throws ProductServiceException {
+        Key asKey = new Key(namespace, priceSet, id);
+        Bin currencyBin = new Bin(CURRENCY_BIN, currency);
+        Bin priceBin = new Bin(VALUE_BIN, price);
+        try {
+            aerospikeClient.put(null, asKey, currencyBin, priceBin);
+        } catch (AerospikeException ex) {
+            throw new ProductServiceException(DB_ERROR);
         }
     }
 }

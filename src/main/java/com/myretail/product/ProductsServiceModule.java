@@ -6,6 +6,9 @@ import com.aerospike.client.policy.ClientPolicy;
 import com.google.common.net.HostAndPort;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 /**
  * Guice module for injection.
@@ -16,6 +19,8 @@ public class ProductsServiceModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(ProductsServiceApplication.class).asEagerSingleton();
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        bind(HttpClient.class).toInstance(httpClient);
     }
 
     @Provides

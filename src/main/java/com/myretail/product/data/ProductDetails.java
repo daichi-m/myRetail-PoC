@@ -1,15 +1,19 @@
 package com.myretail.product.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -18,12 +22,16 @@ import java.util.List;
 @Builder
 @Getter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ProductDetails {
 
     @Builder
     @Getter
     @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor(access = AccessLevel.PACKAGE)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public static class PriceInfo {
         @JsonProperty
@@ -34,13 +42,17 @@ public class ProductDetails {
         private Error error;
     }
 
-    @Getter
+    @Data
     @ToString
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Error {
         @JsonProperty
         private String message;
     }
+
+    @JsonIgnore
+    private boolean completeInformation = true;
 
     @JsonProperty("id")
     private String productId;

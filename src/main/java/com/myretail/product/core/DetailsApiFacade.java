@@ -10,6 +10,8 @@ import com.jayway.jsonpath.JsonPathException;
 import com.myretail.product.ProductsServiceConfiguration;
 import com.myretail.product.core.exception.ProductServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -28,11 +30,13 @@ public class DetailsApiFacade {
 
     private final ProductsServiceConfiguration configuration;
     private final JsonPath jsonPath;
+    private final HttpClient httpClient;
 
     @Inject
-    public DetailsApiFacade(final ProductsServiceConfiguration configuration) {
+    public DetailsApiFacade(final ProductsServiceConfiguration configuration, final HttpClient httpClient) {
         this.configuration = configuration;
         this.jsonPath = JsonPath.compile(configuration.getJsonPath());
+        this.httpClient = httpClient;
     }
 
     /**
@@ -49,11 +53,12 @@ public class DetailsApiFacade {
                                                  .append("&").append(params).toString();
         log.debug("Details URL: {}", url);
         HttpGet request = new HttpGet(url);
-        CloseableHttpClient client = HttpClients.createDefault();
         try {
-            CloseableHttpResponse httpResponse = client.execute(request);
+            CloseableHttpResponse httpResponse = (CloseableHttpResponse) httpClient.execute(request);
             InputStream respStream = httpResponse.getEntity().getContent();
-            return jsonPath.read(respStream);
+            String name = jsonPath.read(respStream);
+            httpResponse.close();
+            return name;
         } catch (IOException ex) {
             throw new ProductServiceException(ex, API_ERROR);
         } catch (JsonPathException ex) {
